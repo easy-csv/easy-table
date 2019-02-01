@@ -96,4 +96,8 @@ namespace tab
 
 		FieldCellData Val;	
 	};
+
+
+
+	using FieldCells = TabArray<FieldCell>;
 }

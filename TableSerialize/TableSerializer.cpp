@@ -8,6 +8,7 @@
 #include "TableCore/TabPrivateDef.h"
 #include "TableCore/Table.h"
 #include "TableCore/StringUtils.h"
+#include "TableSerialize/SerializeUtils.h"
 
 #include <sstream>
 
@@ -52,51 +53,6 @@ namespace tab
 				Stream() << TABLE_TEXT("(") << TypeProp << TextChar(cstr::CHAR_EQ) << type.name << TABLE_TEXT(")");
 			}
 		}
-		void SerializeCell(const FieldDecl& def, const FieldCell& val)
-		{
-			switch (def.TypeCode)
-			{
-			case EFT_Float:
-			{
-				Stream() << val.Val.fValue;
-				break;
-			}
-			case EFT_Num:
-			{
-				Stream() << val.Val.nValue;
-				break;
-			}
-			case EFT_Text:
-			{
-				Stream() << val.Val.pText;
-				break;
-			}
-			default:
-				break;
-			}
-		}
-
-
-		void SerializeCells(int begin, int count)
-		{
-			SerializeCell(mTable->mData.TableHead[0], mTable->mData.Fields[begin]);
-
-			for (int fieldIdx = 1; fieldIdx < count; ++fieldIdx)
-			{
-				SerializeCellEnd();
-				SerializeCell(mTable->mData.TableHead[fieldIdx], mTable->mData.Fields[begin + fieldIdx]);
-			}
-		}
-
-		void SerializeCellEnd()
-		{
-			Stream() << (TABLE_TEXT(","));
-		}
-
-		void SerializeLineEnd()
-		{
-			Stream() << (TABLE_TEXT("\r\n"));
-		}
 
 		void Serialize(const Table* table)
 		{
@@ -114,7 +70,7 @@ namespace tab
 
 				for (int fieldIdx = 1; fieldIdx < fieldCount; ++fieldIdx)
 				{
-					SerializeCellEnd();
+					utils::SerializeCellEnd(Stream());
 					SerializeField(mTable->mData.TableHead[fieldIdx]);
 				}
 			}
@@ -127,8 +83,10 @@ namespace tab
 				int lineIdx = 0;
 				for (; lineIdx < lineCount; ++lineIdx, beginIdx += fieldCount)
 				{
-					SerializeLineEnd();
-					SerializeCells(beginIdx, fieldCount);
+					utils::SerializeLineEnd(Stream());
+
+					utils::SerializeCells(Stream(), mTable->mData.TableHead, mTable->mData.Fields, 
+						beginIdx, fieldCount);
 				}
 			}
 		}

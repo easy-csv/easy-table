@@ -15,7 +15,7 @@ namespace tab
 	{
 	public:
 
-		using FIELDS = TabArray<FieldCell>;
+		using FIELDS = FieldCells;
 
 		using TEXT_CHAR = TextChar;
 		using TEXT_CACHE = TEXT_CHAR*;

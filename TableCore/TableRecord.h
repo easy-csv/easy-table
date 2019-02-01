@@ -62,6 +62,15 @@ namespace tab
 			return mHead->GetDecl(idx).Reflectable<VType>();
 		}
 
+		const FieldHead* GetHeadPtr() const
+		{
+			return mHead;
+		}
+
+		const FieldCell* GetBeginCellPtr() const
+		{
+			return mBeginCell;
+		}
 		friend class TableRecordFactory;
 	protected:
 		TableRecord(const FieldCell* cell, const FieldHead* head, int32_t len)
