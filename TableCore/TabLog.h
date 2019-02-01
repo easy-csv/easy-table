@@ -8,6 +8,8 @@
 
 #include "TableCore/TabType.h"
 
+
+
 namespace tab
 {
 	class LogStreamBase
@@ -133,10 +135,12 @@ namespace tab{
 	}
 }
 #if HIDE_TABLE_LOG
-#define LOG_START(_Log) { tab::LogStreamEmpty( tab::LogType_ ## _Log)
+#	define LOG_START(_Log) if(0){ tab::LogStreamEmpty( tab::LogType_ ## _Log)
+#	define LOG_END  tab::LogEnd;}
 #else
 #	define LOG_START(_Log) { tab::Newlog( tab::LogType_ ## _Log)
+#	define LOG_END tab::LogEnd;}
 #endif
 
-#define LOG_END tab::LogEnd;}
+
 

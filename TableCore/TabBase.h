@@ -28,12 +28,14 @@ namespace tab
 	using Char16_t = tabdef::char16;
 
 	using TabString = U8String;
-#if TABLE_TEXT_IS_CHAR16
-	using TextString = U16String;
-#else
+
+#if TABLE_TEXT_TYPE == TEXT_TYPE_CHAR8
 	using TextString = U8String;
 #endif
 
+#if TABLE_TEXT_TYPE == TEXT_TYPE_CHAR16
+	using TextString = U16String;
+#endif
 
 	using TextChar = StringClass<TextString>::CharType;
 
@@ -60,9 +62,12 @@ namespace tab
 	};
 }
 
-#if TABLE_TEXT_IS_CHAR16
-#define _TEXT_PASTE_(x) (const tab::TextChar*)(u ## x)
-#else
-#define _TEXT_PASTE_(x) L ## x
+#if TABLE_TEXT_TYPE == TEXT_TYPE_CHAR16
+#	define _TEXT_PASTE_(x) (const tab::TextChar*)(u ## x)
 #endif
+
+#if TABLE_TEXT_TYPE == TEXT_TYPE_CHAR8
+#	define _TEXT_PASTE_(x) L ## x
+#endif
+
 #define TABLE_TEXT(x) _TEXT_PASTE_(x)

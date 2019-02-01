@@ -30,24 +30,20 @@
 #	define _constexpr constexpr
 #endif
 
-#ifndef TABLE_TEXT_IS_CHAR16 
-#define TABLE_TEXT_IS_CHAR16 1
+#define TEXT_TYPE_CHAR8 1
+#define TEXT_TYPE_CHAR16 2
+#define TEXT_TYPE_CHAR32 3
+
+#ifndef TABLE_TEXT_TYPE 
+#	define TABLE_TEXT_TYPE TEXT_TYPE_CHAR16
 #endif
 
 #ifndef USE_STANDARD_LOG
-#define USE_STANDARD_LOG 0
-#endif
-
-#if USE_STANDARD_LOG
-#	define HIDE_TABLE_LOG 0
-#endif
-
-#ifndef HIDE_TABLE_LOG
-#define HIDE_TABLE_LOG 1
+#	define USE_STANDARD_LOG 0
 #endif
 
 #ifndef TABLE_API
-#define TABLE_API
+#	define TABLE_API //	empty
 #endif
 
 
@@ -55,7 +51,17 @@
 #	define USE_UE4_CONVERT 0
 #endif 
 
-#define MAX_FILE_PATH 256
+
+#if USE_STANDARD_LOG
+#	define HIDE_TABLE_LOG 0
+#endif
+
+#ifndef HIDE_TABLE_LOG
+#	define HIDE_TABLE_LOG 1
+#endif
+
+
+
 
 namespace tab
 {
