@@ -15,6 +15,10 @@ namespace tab
 
 	class TableSerializeCache;
 
+	/**
+	* TableSerializer class
+	* Serialize table data to csv format.
+	*/
 	class TABLE_API TableSerializer
 	{
 	public:

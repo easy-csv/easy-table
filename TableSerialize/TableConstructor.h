@@ -11,6 +11,11 @@
 namespace tab
 {
 	class TableConstructorCache;
+
+	/**
+	* TableConstructor class
+	* Constructor table data api.
+	*/
 	class TableConstructor
 	{
 	public:

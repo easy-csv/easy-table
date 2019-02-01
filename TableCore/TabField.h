@@ -94,9 +94,6 @@ namespace tab
 			return Property::Reflector::FromCell(Val);
 		}
 
-		FieldCellData Val;
-		
-
-
+		FieldCellData Val;	
 	};
 }

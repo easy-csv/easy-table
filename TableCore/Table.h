@@ -11,11 +11,20 @@
 #include "TableCore/TableIndexBase.h"
 #include <memory>
 
+ /**
+ * Table format
+ *
+ * ------- FieldHead	:  field_1 field_2 field_3 ... field_N
+ * ------- Record_1		:  cell    cell    cell    ... cell
+ * ------- Record_2		:  cell    cell    cell    ... cell
+ * ------- Record_3		:  cell    cell    cell    ... cell
+ * ------- .................................................
+ * ------- Record_N		:  cell    cell    cell    ... cell
+ *
+ */
+
 namespace tab
 {
-
-	class IFieldIndex;
-
 	class TableRecordFactory
 	{
 	public:
@@ -31,6 +40,10 @@ namespace tab
 	};
 
 
+	/**
+	* Table class
+	* csv format in memory.
+	*/
 	class TABLE_API Table
 	{
 	public:

@@ -14,6 +14,12 @@ namespace tab
 {
 	class CsvTableParser;
 	class TableDeserializeCache;
+
+
+	/**
+	 * TableDeserializer class
+	 * Deserialize csv format text to table data.
+	 */
 	class TABLE_API TableDeserializer
 	{
 	public:
