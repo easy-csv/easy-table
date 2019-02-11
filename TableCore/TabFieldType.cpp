@@ -17,6 +17,7 @@ namespace tab
 		SetTypeDef(EFT_Text, TABLE_TEXT("text"));
 		SetTypeDef(EFT_Num, TABLE_TEXT("num"));
 		SetTypeDef(EFT_Float, TABLE_TEXT("float"));
+		SetTypeDef(EFT_Bool, TABLE_TEXT("bool"));
 
 	}
 

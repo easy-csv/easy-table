@@ -65,18 +65,6 @@
 
 namespace tab
 {
-	template <typename T>
-	struct StringClass
-	{
-		using StringType = typename T;
-		using CharType = typename StringType::value_type;
-
-		static const CharType* GetBuffer(const T& str)
-		{
-			return str.c_str();
-		}
-
-	};
 
 	namespace tabdef
 	{
@@ -86,7 +74,34 @@ namespace tab
 		using uint64 = uint64_t;
 		using float32 = float;
 		using float64 = double;
+		using boolean = bool;
+	}
 
+	template <typename T>
+	struct StringClass
+	{
+		using StringType = typename T;
+		using CharType = typename StringType::value_type;
+
+		inline static const CharType* GetBuffer(const StringType& str)
+		{
+			return str.c_str();
+		}
+
+		inline static tabdef::int32 Length(const StringType& str)
+		{
+			return (tabdef::int32)str.length();
+		}
+
+		inline static void ResetByChar(StringType& str, CharType ch)
+		{
+			str.resize(1, ch);
+		}
+
+	};
+
+	namespace tabdef
+	{
 		using u8str = std::string;
 		using char8 = StringClass<u8str>::CharType;
 
@@ -100,6 +115,5 @@ namespace tab
 
 		using char16 = StringClass<u16str>::CharType;
 	}
-
 }
 

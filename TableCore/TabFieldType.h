@@ -23,6 +23,7 @@ namespace tab
 {
 	using FIELD_NUM = tabdef::int32;
 	using FIELD_FLOAT = tabdef::float32;
+	using FIELD_BOOL = tabdef::boolean;
 	using FIELD_TEXT = StaticTextString;
 
 	enum FieldType
@@ -31,6 +32,7 @@ namespace tab
 		EFT_Text,
 		EFT_Num,	//number.
 		EFT_Float,
+		EFT_Bool,
 		EFT_Count,
 	};
 
@@ -77,6 +79,7 @@ namespace tab
 	{
 		FIELD_FLOAT	fValue;
 		FIELD_NUM nValue;
+		FIELD_BOOL bValue;
 		CTEXT_PTR pText;
 	};
 

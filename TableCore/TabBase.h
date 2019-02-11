@@ -16,6 +16,7 @@ namespace tab
 	using tabdef::uint64;
 	using tabdef::float32;
 	using tabdef::float64;
+	using tabdef::boolean;
 
 	using index_t = int32_t;
 

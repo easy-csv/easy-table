@@ -22,6 +22,9 @@ namespace tab
 		constexpr TabChar CHAR_COMMA = ',';
 		constexpr TabChar CHAR_LPAREN = '(';
 		constexpr TabChar CHAR_RPAREN = ')';
+
+		constexpr TabChar CHAR_TRUE = '1';
+		constexpr TabChar CHAR_FALSE = '0';
 	}
 
 

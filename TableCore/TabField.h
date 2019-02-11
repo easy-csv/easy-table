@@ -73,7 +73,10 @@ namespace tab
 		{
 			Val.fValue = value;
 		}
-
+		inline FieldCell(FIELD_BOOL value)
+		{
+			Val.bValue = value;
+		}
 		static inline FieldCell MakeTextCell(CTEXT_PTR value)
 		{
 			return FieldCell().SetTextPtr(value);

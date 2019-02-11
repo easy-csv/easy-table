@@ -62,7 +62,7 @@ namespace tab
 				KeyType key = KeyType(cell.GetValue<typename CellType>());
 				mMap.size();
 				auto result = mMap.insert_or_assign(key, record);
-				if (result.second)
+				if (!result.second)
 				{
 					LOG_START(Warn) << LOG_TEXT("key '") << key << LOG_TEXT("' is redifined.") << LOG_END;
 				}

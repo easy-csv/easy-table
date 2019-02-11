@@ -5,6 +5,7 @@
 #pragma once
 
 #include "TableCore/TabType.h"
+#include "TableCore/GenericChar.h"
 
 
 namespace tab
@@ -24,6 +25,63 @@ namespace tab
 				v[i] = (Char16_t)(str[i]);
 			}
 		}
+
+
+
+		template<typename T>
+		inline void BoolToChar(boolean b, T& ch)
+		{
+			ch = b ? ((T)CHAR_TRUE) : ((T)CHAR_FALSE);
+		}
+		template<typename T>
+		inline void CharToBool(T ch, boolean& b)
+		{
+			b = (ch == (T)CHAR_TRUE) ? true : false;
+		}
+
+		template<typename Str>
+		inline void BoolToString(boolean b, Str& str)
+		{
+			using StrT = StringClass<Str>;
+
+			StrT::CharType ch;
+			BoolToChar(b, ch);
+			StrT::ResetByChar(str, ch);	
+		}
+
+
+		template<typename Str>
+		inline void StringToBool(const Str& str, boolean& b)
+		{
+			using StrT = StringClass<Str>;
+			int32 len = StrT::Length(str);
+			if (1 == len)
+			{
+				CharToBool(str[0], b);
+			}
+			else
+			{
+				b = false;
+			}
+		}
+
+		template<typename Char>
+		inline void StringToBool(const Char* str, boolean& b)
+		{
+			if (str == nullptr || *str == cstr::CHAR_NUL)
+			{
+				b = false;
+			}
+			else if (*(str + 1) == cstr::CHAR_NUL)
+			{
+				CharToBool(*str, b);
+			}
+			else
+			{
+				b = false;
+			}
+		}
+
 
 		// string to v
 		template<typename T, typename _CharType> 
@@ -46,6 +104,19 @@ namespace tab
 			using Str = StringClass<U16String>;
 
 			ToValue(v, Str::GetBuffer(str));
+		}
+
+		//---------------------------------------------------------------------
+		// bool to value
+		template<typename Str>
+		inline void ToValue(boolean& v, const Str& str)
+		{
+			StringToBool<Str>(str, v);
+		}
+		template<typename Char>
+		inline void ToValue(boolean& v, const Char* str)
+		{
+			StringToBool<Char>(str, v);
 		}
 
 		//---------------------------------------------------------------------
@@ -103,6 +174,13 @@ namespace tab
 			_String str;
 			ToString(str, val);
 			return std::move(str);
+		}
+
+		// bool
+		template<typename _String>
+		inline void ToString(_String& str, const boolean& v)
+		{
+			BoolToString<_String>(v, str);
 		}
 
 		// u8
