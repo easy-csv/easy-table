@@ -29,7 +29,7 @@ namespace tab
 	};
 
 #define LOG_TEXT(msg) static_cast<const tab::LogStreamBase::LogChar*>(msg)
-
+#define LOG_INT(v) (int32)v
 }
 
 

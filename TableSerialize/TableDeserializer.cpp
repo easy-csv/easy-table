@@ -309,13 +309,22 @@ namespace tab
 						DeserializeCell(ielem, recordLine[ielem]);
 					}
 
-					for (; ielem < fieldCount; ++ielem) // add empty field values.
+					if (ielem < fieldCount)
 					{
-						utils::AddDefaultCell(mTable->mData, ielem);
+						LOG_START(Warn) << LOG_TEXT("no enough elem for line: ") << line << LOG_TEXT(", append empty field values(+") << LOG_INT(fieldCount - ielem) << LOG_TEXT(") to line.") << LOG_END;
+						for (; ielem < fieldCount; ++ielem) // add empty field values.
+						{
+							utils::AddDefaultCell(mTable->mData, ielem);
+						}
 					}
+
 				}
 				else
 				{
+					if (recordLine.size() != fieldCount)
+					{
+						LOG_START(Warn) << LOG_TEXT("to many elems for line: ") << line << LOG_END;
+					}
 					int ielem = 0;
 					for (; ielem < fieldCount; ++ielem)
 					{
