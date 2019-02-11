@@ -225,19 +225,17 @@ namespace tab
 		void DeserializeCell(int32_t index, const TextChar* val)
 		{
 			const FieldDecl& Field = mTable->mData.TableHead[index];
-			switch (Field.TypeCode)
+
+			utils::DeserResult result = utils::DeserializeValueCell(mTable->mData, index, val);
+
+			switch (result)
 			{
-			case EFT_Num:
+			case utils::DeserResult::Succeed:
 			{
-				utils::AddCellValue(mTable->mData, cstr::ToValue<FIELD_NUM>(val));
 				break;
 			}
-			case EFT_Float:
-			{
-				utils::AddCellValue(mTable->mData, cstr::ToValue<FIELD_FLOAT>(val));
-				break;
-			}
-			case EFT_Text:
+
+			case utils::DeserResult::TextType:
 			{
 				AddTextCache(val);
 				break;
@@ -249,7 +247,6 @@ namespace tab
 			}
 			break;
 			}
-
 		}
 
 		void FixStringCache()

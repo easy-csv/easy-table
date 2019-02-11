@@ -253,7 +253,11 @@ namespace tab
 		mCache->AddValue(val);
 		return true;
 	}
-
+	bool TableConstructor::emplaceBackFieldCell(FIELD_BOOL val)
+	{
+		mCache->AddValue(val);
+		return true;
+	}
 	void TableConstructor::prepareCache(Table* t)
 	{
 		if (nullptr == mCache)

@@ -109,6 +109,7 @@ namespace tab
 		bool emplaceBackFieldCell(TextString val);
 		bool emplaceBackFieldCell(FIELD_NUM val);
 		bool emplaceBackFieldCell(FIELD_FLOAT val);
+		bool emplaceBackFieldCell(FIELD_BOOL val);
 
 		void prepareCache(Table* t);
 		void delCache();

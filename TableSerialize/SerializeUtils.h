@@ -6,6 +6,7 @@
 
 #include "TableCore/TabType.h"
 #include "TableCore/TabData.h"
+#include "TableCore/StringUtils.h"
 #include "TableCore/TableRecord.h"
 namespace tab
 {
@@ -56,6 +57,11 @@ namespace tab
 			{
 				Stream << val.Val.nValue;
 				break;
+			}			
+			case EFT_Bool:
+			{
+				Stream << val.Val.bValue;
+				break;
 			}
 			case EFT_Text:
 			{
@@ -66,6 +72,49 @@ namespace tab
 				break;
 			}
 		}
+
+		enum DeserResult
+		{
+			Succeed,
+			TextType,
+			UnknownType,
+		};
+
+		inline DeserResult DeserializeValueCell(TabData& data, int32_t index, const TextChar* val)
+		{
+			const FieldDecl& Field = data.TableHead[index];
+			switch (Field.TypeCode)
+			{
+			case EFT_Num:
+			{
+				utils::AddCellValue(data, cstr::ToValue<FIELD_NUM>(val));
+				break;
+			}
+			case EFT_Float:
+			{
+				utils::AddCellValue(data, cstr::ToValue<FIELD_FLOAT>(val));
+				break;
+			}
+			case EFT_Bool:
+			{
+				utils::AddCellValue(data, cstr::ToValue<FIELD_BOOL>(val));
+				break;
+			}
+			case EFT_Text:
+			{
+				return DeserResult::TextType;
+				break;
+			}
+			default:
+			{
+				return DeserResult::UnknownType;
+			}
+			break;
+			}
+			return DeserResult::Succeed;
+		}
+
+
 
 		template<typename _Stream>
 		inline void SerializeCells(_Stream& Stream, const FieldHead& head, const FieldCells& cells, int begin, int count)
