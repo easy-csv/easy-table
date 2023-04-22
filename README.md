@@ -33,4 +33,4 @@ The type of field can be specified in csv string.
 
     	key,fv1(type=float),fv2(type=float),num1(type=num),num2(type=num),txt1(type=text),txt2
 
-If no field type is specified, the default field type will be 'text'.
+If not specified, the default field type will be 'text'.
